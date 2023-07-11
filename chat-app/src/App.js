@@ -5,14 +5,17 @@ import './App.css';
 import MessagesDisplay from './components/MessageDisplay';
 import MessageInput from './components/MessageInput';
 
+function getRandomColor() {
+  return '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+}
+
 const ChatApp = () => {
   const initialChatState = {
-    member: { username: '' },
+    member: { username: '', color: '' },
     messages: []
   };
   const [chat, setChat] = useState(initialChatState);
   const [drone, setDrone] = useState(null);
-  // const [username, setUsername] = useState("")
 
   useEffect(() => {
     if (chat.member.username !== '') {
@@ -22,13 +25,6 @@ const ChatApp = () => {
       setDrone(drone);
     }
   }, [chat.member]);
-
-  // useEffect(() => {
-  //   if (chat.messages.length) {
-  //     const scrollElement = document.getElementsByClassName('msg-list')[0];
-  //     scrollElement.scrollTop = scrollElement.scrollHeight;
-  //   }
-  // }, [chat.messages.length]);
 
   if (drone) {
     drone.on('open', (error) => {
@@ -57,7 +53,7 @@ const ChatApp = () => {
 
   function handleUsernameInput() {
     const username = document.getElementById('usernameInput').value;
-    setChat({ ...chat, member: { username: username } });
+    setChat({ ...chat, member: { username: username, color: getRandomColor() } });
   }
 
   return (

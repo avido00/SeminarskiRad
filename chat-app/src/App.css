@@ -39,30 +39,41 @@ height: 100vh;
   width: 20%;
 }
 
+#messagesList{
+  overflow-y: scroll;
+  height: 95%;
+}
+
 .message{
-  display: flex;
-  flex-direction: row;
   width: 100%;
+  display: flex;
+}
+
+.message:has(.message_right){
+  justify-content: end;
+}
+
+.message:has(.message_left){
+  justify-content: start;
 }
 
 .message_left, .message_right{
   display: flex;
   flex-direction: column;
-  max-width: 100%;
   margin: 15px;
-  border: 1px solid green;
+  padding: 10px;
+  border-radius: 25px;
+  text-align: start;
+  background-color: rgb(0, 155, 175);
+  border: 3px solid black;
 }
 
-.message .message_left{
-  justify-self: start;
-}
-
-.message .message_right{
-  justify-self: end;
-}
 
 .member_name{
   font-weight: bold;
+  font-size: 18px;
+  font-style: italic;
 }
 .member_message{
+  color: white;
 }

@@ -2,22 +2,30 @@ import React from 'react';
 
 export default function MessagesDisplay({ messages, thisMember }) {
   function renderMessage(message) {
-    const { member, data, id } = message;
+    const { member, data } = message;
     const thisMemberMsg = member.id === thisMember.id;
 
-    return thisMemberMsg ? (
+    const memberStyle = {
+      color: member.clientData.color
+    };
+
+    return (
       <div className="message">
-        <div className="message_right" key={id} data-id={member.id}>
-          <div className="member_name">{member.clientData.username}</div>
-          <div className="member_message">{data}</div>
-        </div>
-      </div>
-    ) : (
-      <div className="message">
-        <div className="message_left" key={id} data-id={member.id}>
-          <div className="member_name">{member.clientData.username}</div>
-          <div className="member_message">{data}</div>
-        </div>
+        {thisMemberMsg ? (
+          <div className="message_right" data-id={member.id}>
+            <div className="member_name" style={memberStyle}>
+              {member.clientData.username}
+            </div>
+            <div className="member_message">{data}</div>
+          </div>
+        ) : (
+          <div className="message_left" data-id={member.id}>
+            <div className="member_name" style={memberStyle}>
+              {member.clientData.username}
+            </div>
+            <div className="member_message">{data}</div>
+          </div>
+        )}
       </div>
     );
   }
