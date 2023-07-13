@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export default function MessagesDisplay({ messages, thisMember }) {
+  const messagesList = useRef();
+
+  useEffect(() => {
+    if (messages.length) {
+      messagesList.current.scrollTop = messagesList.current.scrollHeight;
+    }
+  }, [messages.length]);
+
   function renderMessage(message) {
     const { member, data } = message;
     const thisMemberMsg = member.id === thisMember.id;
@@ -30,5 +38,9 @@ export default function MessagesDisplay({ messages, thisMember }) {
     );
   }
 
-  return <div id="messagesList">{messages.map((m) => renderMessage(m))}</div>;
+  return (
+    <div id="messagesList" ref={messagesList}>
+      {messages.map((m) => renderMessage(m))}
+    </div>
+  );
 }
