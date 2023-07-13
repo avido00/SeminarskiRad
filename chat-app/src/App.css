@@ -1,17 +1,53 @@
 .main_container{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 100vw;
-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.welcome_title{
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.chat_room{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 75%;
+  border: 2px solid black;
+    padding: 35px;
+    border-radius: 30px;
+    background-color: burlywood;
+}
+
+.chat_room_title{
+  margin-bottom: 25px;
+    font-size: 30px;
+    font-style: italic;
 }
 
 .app_wrapper{
   background-color: antiquewhite;
-  height: 70%;
-  width: 50%;
+  height: 100%;
+  width: 100%;
   position: relative;
+}
+
+.username_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 30px;
+  border-radius: 30px;
+  background-color: antiquewhite;
+
 }
 
 .username_input{
@@ -40,7 +76,7 @@ height: 100vh;
 }
 
 #messagesList{
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 95%;
 }
 

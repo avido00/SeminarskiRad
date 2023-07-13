@@ -1,9 +1,8 @@
-import { mdiCheck } from '@mdi/js';
-import Icon from '@mdi/react';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import MessagesDisplay from './components/MessageDisplay';
 import MessageInput from './components/MessageInput';
+import WelcomeScreen from './components/WelcomeScreen';
 
 function getRandomColor() {
   return '#' + Math.floor(Math.random() * 0xffffff).toString(16);
@@ -16,6 +15,7 @@ const ChatApp = () => {
   };
   const [chat, setChat] = useState(initialChatState);
   const [drone, setDrone] = useState(null);
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState(true);
 
   useEffect(() => {
     if (chat.member.username !== '') {
@@ -51,25 +51,29 @@ const ChatApp = () => {
     });
   };
 
-  function handleUsernameInput() {
-    const username = document.getElementById('usernameInput').value;
-    setChat({ ...chat, member: { username: username, color: getRandomColor() } });
-  }
+  const handleUsernameSubmit = (event, username) => {
+    event.preventDefault();
+    if (username !== '') {
+      setChat({ ...chat, member: { username: username, color: getRandomColor() } });
+      setShowWelcomeScreen(false);
+    } else {
+      //
+    }
+  };
 
   return (
     <div className="main_container">
-      {chat.member.username}
-      <div className="username_input">
-        <input id="usernameInput" type="text" placeholder="Enter your username..." />
-        <button onClick={() => handleUsernameInput()}>
-          <Icon path={mdiCheck} title="Send message" size={0.5} color="green" />
-        </button>
-      </div>
-
-      <div className="app_wrapper">
-        <MessagesDisplay messages={chat.messages} thisMember={chat.member} />
-        <MessageInput onSendMessage={handleSendMessage} />
-      </div>
+      {showWelcomeScreen ? (
+        <WelcomeScreen onUsernameSubmit={handleUsernameSubmit} />
+      ) : (
+        <div className="chat_room">
+          <div className="chat_room_title">You are chatting as {chat.member.username}!</div>
+          <div className="app_wrapper">
+            <MessagesDisplay messages={chat.messages} thisMember={chat.member} />
+            <MessageInput onSendMessage={handleSendMessage} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
